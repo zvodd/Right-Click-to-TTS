@@ -1,10 +1,13 @@
-
 chrome.browserAction.onClicked.addListener(function(tab) {
-    chrome.tabs.executeScript( {
-        code: "window.getSelection().toString();"
-    }, function(selection) {
-        tts_play(selection);
-    });
+    if(window.speechSynthesis.speaking){
+        tts_stop();
+    }else{
+        chrome.tabs.executeScript( {
+            code: "window.getSelection().toString();"
+        }, function(selection) {
+            tts_play(selection);
+        }); 
+    }
 });
 
 
